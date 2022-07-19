@@ -28,5 +28,33 @@ namespace IONACodingExercise.WebServices
             }
             return null;
         }
+
+        public List<BreedImageDTO> GetDogBreedImages(int limit, int page)
+        {
+            RestRequest request = new RestRequest("v1/images/search");
+            request.AddParameter("limit", limit);
+            request.AddParameter("page", page);
+
+            var result = client.ExecuteGet(request);
+
+            if (result.IsSuccessful)
+            {
+                return JsonConvert.DeserializeObject<List<BreedImageDTO>>(result.Content);
+            }
+            return null;
+        }
+
+        public BreedImageDTO GetDogBreedImage(string ImageId)
+        {
+            RestRequest request = new RestRequest($"v1/images/{ImageId}");
+
+            var result = client.ExecuteGet(request);
+
+            if (result.IsSuccessful)
+            {
+                return JsonConvert.DeserializeObject<BreedImageDTO>(result.Content);
+            }
+            return null;
+        }
     }
 }

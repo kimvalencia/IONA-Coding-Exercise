@@ -1,6 +1,6 @@
 ﻿namespace IONACodingExercise.ExternalDomains.BreedAgg
 {
-    public class BreedImage
+    public class BreedImageDTO
     {
         public string id { get; set; }
         public int width { get; set; }

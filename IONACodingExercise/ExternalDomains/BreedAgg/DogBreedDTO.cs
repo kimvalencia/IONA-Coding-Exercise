@@ -13,6 +13,6 @@
         public string temperament { get; set; }
         public string origin { get; set; }
         public string reference_image_id { get; set; }
-        public BreedImage image { get; set; }
+        public BreedImageDTO image { get; set; }
     }
 }

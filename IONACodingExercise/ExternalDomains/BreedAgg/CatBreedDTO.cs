@@ -36,6 +36,6 @@
         public string wikipedia_url { get; set; }
         public int hypoallergenic { get; set; }
         public string reference_image_id { get; set; }
-        public BreedImage image { get; set; }
+        public BreedImageDTO image { get; set; }
     }
 }
