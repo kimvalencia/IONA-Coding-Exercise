@@ -1,3 +1,5 @@
+using IONACodingExercise.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,6 +16,8 @@ builder.Services.AddApiVersioning(config =>
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<ServiceAuthenticationMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
