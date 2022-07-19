@@ -4,7 +4,7 @@ using RestSharp;
 
 namespace IONACodingExercise.WebServices
 {
-    public class DogWebService
+    public class DogWebService : IDogWebService
     {
         RestClient client;
         readonly string API_KEY = "d60209ef-c9da-42a2-9146-794fa3861299";

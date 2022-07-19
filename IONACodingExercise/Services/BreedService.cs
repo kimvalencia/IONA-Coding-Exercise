@@ -7,12 +7,21 @@ namespace IONACodingExercise.Services
 {
     public class BreedService
     {
+        ICatWebService _catWebService;
+        IDogWebService _dogWebService;
+
+        public BreedService(ICatWebService catWebService, IDogWebService dogWebService)
+        {
+            _catWebService = catWebService;
+            _dogWebService = dogWebService;
+        }
+
         public List<Breed> GetCombinedBreeds(int limit, int page)
         {
             List<Breed> breeds = new List<Breed>();
             
-            List<CatBreedDTO> CatBreeds =  new CatWebService().GetCatBreeds(limit*page, 1);
-            List<DogBreedDTO> DogBreeds =  new DogWebService().GetDogBreeds(limit*page, 1);
+            List<CatBreedDTO> CatBreeds =  _catWebService.GetCatBreeds(limit*page, 1);
+            List<DogBreedDTO> DogBreeds =  _dogWebService.GetDogBreeds(limit*page, 1);
 
             if (CatBreeds != null)
                 breeds.AddRange(CatBreeds.Adapt<List<Breed>>());
@@ -31,13 +40,13 @@ namespace IONACodingExercise.Services
 
             if (breed.ToLower().Trim().Equals("cat"))
             {
-                List<BreedImageDTO> CatBreedImages = new CatWebService().GetCatBreedImages(limit * page, 1);
+                List<BreedImageDTO> CatBreedImages = _catWebService.GetCatBreedImages(limit * page, 1);
                 if (CatBreedImages != null)
                     BreedImages = CatBreedImages.Adapt<List<BreedImage>>();
             }
             else if (breed.ToLower().Trim().Equals("dog"))
             {
-                List<BreedImageDTO> DogBreedImages = new DogWebService().GetDogBreedImages(limit * page, 1);
+                List<BreedImageDTO> DogBreedImages = _dogWebService.GetDogBreedImages(limit * page, 1);
 
                 if (DogBreedImages != null)
                     BreedImages = DogBreedImages.Adapt<List<BreedImage>>();
@@ -50,8 +59,8 @@ namespace IONACodingExercise.Services
         {
             List<BreedImage> BreedImages = new List<BreedImage>();
 
-            List<BreedImageDTO> CatBreedImages = new CatWebService().GetCatBreedImages(limit * page, 1);
-            List<BreedImageDTO> DogBreedImages = new DogWebService().GetDogBreedImages(limit * page, 1);
+            List<BreedImageDTO> CatBreedImages = _catWebService.GetCatBreedImages(limit * page, 1);
+            List<BreedImageDTO> DogBreedImages = _dogWebService.GetDogBreedImages(limit * page, 1);
 
             if (CatBreedImages != null)
                 BreedImages.AddRange(CatBreedImages.Adapt<List<BreedImage>>());
@@ -70,10 +79,10 @@ namespace IONACodingExercise.Services
             
             BreedImageDTO breedImageDTO = null;
 
-            breedImageDTO = new CatWebService().GetCatBreedImage(ImageId);
+            breedImageDTO = _catWebService.GetCatBreedImage(ImageId);
 
             if(breedImageDTO==null)
-                breedImageDTO = new DogWebService().GetDogBreedImage(ImageId);
+                breedImageDTO = _dogWebService.GetDogBreedImage(ImageId);
 
             if (breedImageDTO != null)
             {

@@ -1,4 +1,5 @@
 using IONACodingExercise.Middleware;
+using IONACodingExercise.WebServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,9 @@ builder.Services.AddApiVersioning(config =>
     config.AssumeDefaultVersionWhenUnspecified= true;
     config.ReportApiVersions = true;
 });
+builder.Services.AddScoped<ICatWebService, CatWebService>();
+builder.Services.AddScoped<IDogWebService, DogWebService>();
+
 
 var app = builder.Build();
 

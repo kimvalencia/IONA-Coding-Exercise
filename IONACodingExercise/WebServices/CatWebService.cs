@@ -4,7 +4,7 @@ using RestSharp;
 
 namespace IONACodingExercise.WebServices
 {
-    public class CatWebService
+    public class CatWebService : ICatWebService
     {
         RestClient client;
         readonly string API_KEY= "bb16bac4-8615-4273-9f91-01f713be074a";

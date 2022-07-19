@@ -1,5 +1,6 @@
 ﻿using IONACodingExercise.Domain.BreedAgg;
 using IONACodingExercise.Services;
+using IONACodingExercise.WebServices;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,6 +12,13 @@ namespace IONACodingExercise.Controllers
     [ApiVersion("1")]
     public class BreedsController : ControllerBase
     {
+        ICatWebService catWebService;
+        IDogWebService dogWebService;
+        public BreedsController(ICatWebService _catWebService, IDogWebService _dogWebService)
+        {
+            catWebService = _catWebService;
+            dogWebService = _dogWebService;
+        }
         /// <summary>
         /// GET /v1/breeds - Returns a combined paginated list of cat and dog breeds
         /// </summary>
@@ -33,7 +41,7 @@ namespace IONACodingExercise.Controllers
             BreedResponseDTO breedResponseDTO = new BreedResponseDTO();
             breedResponseDTO.limit = limit;
             breedResponseDTO.page = page;
-            breedResponseDTO.results = new BreedService().GetCombinedBreeds(limit, page);
+            breedResponseDTO.results = new BreedService(catWebService,dogWebService).GetCombinedBreeds(limit, page);
 
             return Ok(breedResponseDTO);
         }
@@ -66,7 +74,7 @@ namespace IONACodingExercise.Controllers
             BreedResponseDTO breedResponseDTO = new BreedResponseDTO();
             breedResponseDTO.limit = limit;
             breedResponseDTO.page = page;
-            breedResponseDTO.results = new BreedService().GetBreedImagesByBreed(breed, limit, page);
+            breedResponseDTO.results = new BreedService(catWebService, dogWebService).GetBreedImagesByBreed(breed, limit, page);
 
             return Ok(breedResponseDTO);
         }
@@ -93,7 +101,7 @@ namespace IONACodingExercise.Controllers
             BreedResponseDTO breedResponseDTO = new BreedResponseDTO();
             breedResponseDTO.limit = limit;
             breedResponseDTO.page = page;
-            breedResponseDTO.results = new BreedService().GetCombinedBreedImages(limit, page);
+            breedResponseDTO.results = new BreedService(catWebService, dogWebService).GetCombinedBreedImages(limit, page);
 
             return Ok(breedResponseDTO);
         }
@@ -107,7 +115,7 @@ namespace IONACodingExercise.Controllers
         public IActionResult GetBreedImage(string image)
         {
 
-            BreedImage breedImage = new BreedService().GetBreedImageById(image);
+            BreedImage breedImage = new BreedService(catWebService, dogWebService).GetBreedImageById(image);
 
             if (breedImage == null)
                 return BadRequest("Image not found");
