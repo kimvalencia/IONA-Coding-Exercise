@@ -1,4 +1,5 @@
 ﻿using IONACodingExercise.Domain.BreedAgg;
+using IONACodingExercise.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -32,6 +33,7 @@ namespace IONACodingExercise.Controllers
             BreedResponseDTO breedResponseDTO = new BreedResponseDTO();
             breedResponseDTO.limit = limit;
             breedResponseDTO.page = page;
+            breedResponseDTO.results = new BreedService().GetCombinedBreeds(limit, page);
 
             return Ok(breedResponseDTO);
         }
@@ -56,9 +58,15 @@ namespace IONACodingExercise.Controllers
                 return BadRequest("Page should be at least 1");
             }
 
+            if (string.IsNullOrWhiteSpace(breed))
+            {
+                return BadRequest("Breed is required");
+            }
+
             BreedResponseDTO breedResponseDTO = new BreedResponseDTO();
             breedResponseDTO.limit = limit;
             breedResponseDTO.page = page;
+            breedResponseDTO.results = new BreedService().GetBreedImagesByBreed(breed, limit, page);
 
             return Ok(breedResponseDTO);
         }
@@ -85,6 +93,7 @@ namespace IONACodingExercise.Controllers
             BreedResponseDTO breedResponseDTO = new BreedResponseDTO();
             breedResponseDTO.limit = limit;
             breedResponseDTO.page = page;
+            breedResponseDTO.results = new BreedService().GetCombinedBreedImages(limit, page);
 
             return Ok(breedResponseDTO);
         }
@@ -95,10 +104,13 @@ namespace IONACodingExercise.Controllers
         /// <param name="image">ImageID of image</param>
         /// <returns></returns>
         [HttpGet("{image}")]
-        public IActionResult GetImageList(string image)
+        public IActionResult GetBreedImage(string image)
         {
 
-            BreedImage breedImage = new BreedImage();
+            BreedImage breedImage = new BreedService().GetBreedImageById(image);
+
+            if (breedImage == null)
+                return BadRequest("Image not found");
 
             return Ok(breedImage);
         }
