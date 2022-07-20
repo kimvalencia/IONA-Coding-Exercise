@@ -64,8 +64,10 @@ namespace IONACodingExercise.Services
             
             BreedImageDTO breedImageDTO = null;
 
+            //Initial Search for image in Cat API
             breedImageDTO = _catWebService.GetCatBreedImage(ImageId);
 
+            // if BreedImageDTO is null, Search image on Dog API
             if(breedImageDTO==null)
                 breedImageDTO = _dogWebService.GetDogBreedImage(ImageId);
 

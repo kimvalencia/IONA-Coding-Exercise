@@ -17,7 +17,7 @@ namespace IONACodingExercise.BLL
             if (DogBreeds != null)
                 breeds.AddRange(DogBreeds.Adapt<List<Breed>>());
 
-            breeds = breeds.OrderBy(q => q.name).Skip(page - 1).Take(limit).ToList();
+            breeds = breeds.OrderBy(q => q.name).Skip((page - 1) * limit ).Take(limit).ToList();
 
             return breeds;
         }
@@ -31,7 +31,7 @@ namespace IONACodingExercise.BLL
             if (DogBreedImages != null)
                 BreedImages.AddRange(DogBreedImages.Adapt<List<BreedImage>>());
 
-            BreedImages = BreedImages.OrderBy(q => q.id).Skip(page - 1).Take(limit).ToList();
+            BreedImages = BreedImages.OrderBy(q => q.id).Skip((page - 1) * limit).Take(limit).ToList();
 
             return BreedImages;
         }
