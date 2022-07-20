@@ -2,7 +2,7 @@
 Coding Exercise for IONA Application
 
 Prerequisite Tools
-1. IIS Server 8
+1. IIS Server 8 or later
 2. .Net Core Hosting Bundle (Download here https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
 How to Run the Project
