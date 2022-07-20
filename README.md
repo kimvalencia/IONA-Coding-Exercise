@@ -13,7 +13,7 @@ How to Test the Project
 1. Navigate to folder named "IONACodingExercise.Test"
 2. Run "dotnet test" command
 
-Hoe to Setup the Project in localhost
+How to Setup the Project in localhost
 1. Navigate to folder named "IONACodingExercise"
 2. Run "dotnet publish --configuration Release"
 3. Navigate to "IONACodingExercise\bin\Release\net6.0\publish"
